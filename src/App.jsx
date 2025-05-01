@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
+import { Routes, Route, Link } from 'react-router-dom';
+
 import ProductList from './components/ProductList';
 import Cart from './components/Cart';
-import OrderForm from './components/OrderForm';
 import OrderSummary from './components/OrderSummary';
+import OrderForm from './components/OrderForm';
 
 function App() {
   const [cart, setCart] = useState([]);
@@ -12,22 +14,31 @@ function App() {
   };
 
   const handleRemoveFromCart = (productId) => {
-    const updatedCart = cart.filter((item) => item.id !== productId);
-    setCart(updatedCart);
+    setCart(cart.filter((item) => item.id !== productId));
   };
 
   const handlePlaceOrder = (orderData) => {
     alert(`Pedido realizado por ${orderData.name} para o endereço: ${orderData.address}. Itens: ${cart.map(item => item.name).join(', ')}`);
-    setCart([]); // Limpar o carrinho após o pedido
+    setCart([]);
   };
 
   return (
     <div>
       <h1>Sistema de Pedidos</h1>
-      <ProductList onAddToCart={handleAddToCart} />
-      <Cart cartItems={cart} onRemoveFromCart={handleRemoveFromCart} />
-      <OrderSummary cartItems={cart} />
-      <OrderForm onPlaceOrder={handlePlaceOrder} />
+
+      <nav>
+        <Link to="/">Produtos</Link> |{" "}
+        <Link to="/carrinho">Carrinho</Link> |{" "}
+        <Link to="/resumo">Resumo</Link> |{" "}
+        <Link to="/entrega">Entrega</Link>
+      </nav>
+
+      <Routes>
+        <Route path="/" element={<ProductList onAddToCart={handleAddToCart} />} />
+        <Route path="/carrinho" element={<Cart cartItems={cart} onRemoveFromCart={handleRemoveFromCart} />} />
+        <Route path="/resumo" element={<OrderSummary cartItems={cart} />} />
+        <Route path="/entrega" element={<OrderForm onPlaceOrder={handlePlaceOrder} />} />
+      </Routes>
     </div>
   );
 }
