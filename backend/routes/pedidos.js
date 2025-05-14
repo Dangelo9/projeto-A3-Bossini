@@ -2,10 +2,10 @@ const express = require('express');
 const router = express.Router();
 const pool = require('../db/database');
 
-// Rota para buscar todos os pedidos
+
 router.get('/', async (req, res) => {
   try {
-    const result = await pool.query('SELECT * FROM pedidos'); // Assumindo que sua tabela se chama 'pedidos'
+    const result = await pool.query('SELECT * FROM pedidos'); 
     res.json(result.rows);
   } catch (err) {
     console.error('Erro ao buscar pedidos:', err);
@@ -13,15 +13,15 @@ router.get('/', async (req, res) => {
   }
 });
 
-// Rota para criar um novo pedido
+
 router.post('/', async (req, res) => {
-  const { itens, valorTotal, cliente, endereco } = req.body; // Incluí 'endereco' aqui
+  const { itens, valorTotal, cliente, endereco } = req.body; 
   const dataPedido = new Date();
 
   try {
     const result = await pool.query(
       'INSERT INTO pedidos (data_pedido, itens, valor_total, cliente, endereco) VALUES ($1, $2, $3, $4, $5) RETURNING *',
-      [dataPedido, JSON.stringify(itens), valorTotal, cliente, endereco] // Incluí 'endereco' aqui
+      [dataPedido, JSON.stringify(itens), valorTotal, cliente, endereco] 
     );
     res.status(201).json(result.rows[0]);
   } catch (err) {
@@ -30,9 +30,9 @@ router.post('/', async (req, res) => {
   }
 });
 
-// Rota para excluir um pedido por ID
+
 router.delete('/:id', async (req, res) => {
-  const pedidoId = parseInt(req.params.id); // Obtém o ID do pedido da URL
+  const pedidoId = parseInt(req.params.id); 
 
   if (isNaN(pedidoId)) {
     return res.status(400).json({ message: 'ID do pedido inválido.' });

@@ -8,7 +8,7 @@ function HistoricoPedidos() {
   useEffect(() => {
     const buscarPedidos = async () => {
       try {
-        const response = await fetch('http://localhost:5000/api/pedidos'); // Ajuste a URL se necessário
+        const response = await fetch('http://localhost:5000/api/pedidos'); 
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
@@ -65,11 +65,11 @@ function HistoricoPedidos() {
               <th>ID do Pedido</th>
               <th>Data do Pedido</th>
               <th>Cliente</th>
-              <th>Endereço</th> {/* Nova coluna */}
+              <th>Endereço</th> {}
               <th>Valor Total</th>
               <th>Itens</th>
               <th>Ações</th>
-              {/* Adicione mais colunas conforme a estrutura dos seus dados */}
+              {}
             </tr>
           </thead>
           <tbody>
@@ -78,7 +78,7 @@ function HistoricoPedidos() {
                 <td>{pedido.id}</td>
                 <td>{new Date(pedido.data_pedido).toLocaleDateString()}</td>
                 <td>{pedido.cliente}</td>
-                <td>{pedido.endereco}</td> {/* Exibe o endereço do pedido */}
+                <td>{pedido.endereco}</td> {}
                 <td>R$ {parseFloat(pedido.valor_total).toFixed(2)}</td>
                 <td>
                   <ul>
@@ -90,7 +90,7 @@ function HistoricoPedidos() {
                   </ul>
                 </td>
                 <td>
-                  <button onClick={() => handleDeletePedido(pedido.id)}>Excluir</button>
+                  <button onClick={() => handleDeletePedido(pedido.id)}>Cancelar</button>
                 </td>
               </tr>
             ))}
