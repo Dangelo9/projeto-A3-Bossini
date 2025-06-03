@@ -5,11 +5,11 @@ import ProductList from './components/ProductList';
 import Cart from './components/Cart';
 import OrderSummary from './components/OrderSummary';
 import OrderForm from './components/OrderForm';
-import HistoricoPedidos from './components/HistoricoPedidos'; // Importe o componente
+import HistoricoPedidos from './components/HistoricoPedidos'; 
 
 function App() {
   const [cart, setCart] = useState([]);
-  const navigate = useNavigate(); // Importe e use useNavigate para redirecionamento
+  const navigate = useNavigate(); 
 
   const handleAddToCart = (product) => {
     setCart([...cart, product]);
@@ -28,10 +28,10 @@ function App() {
         },
         body: JSON.stringify({
           cliente: orderData.name,
-          endereco: orderData.address, // Adicione o endereço se você quiser salvá-lo
+          endereco: orderData.address, 
           itens: cart.map(item => ({
             nome: item.name,
-            quantidade: 1, // Assumindo quantidade 1 por item no carrinho
+            quantidade: 1, 
             preco: item.price,
           })),
           valorTotal: cart.reduce((total, item) => total + item.price, 0),
@@ -45,7 +45,7 @@ function App() {
 
       alert('Pedido realizado com sucesso!');
       setCart([]);
-      navigate('/pedidos'); // Redireciona para a tela de pedidos após o sucesso
+      navigate('/pedidos'); 
     } catch (error) {
       console.error('Erro ao finalizar pedido:', error);
       alert('Erro ao finalizar o pedido. Tente novamente.');
@@ -69,7 +69,7 @@ function App() {
         <Route path="/carrinho" element={<Cart cartItems={cart} onRemoveFromCart={handleRemoveFromCart} />} />
         <Route path="/resumo" element={<OrderSummary cartItems={cart} />} />
         <Route path="/entrega" element={<OrderForm onPlaceOrder={handlePlaceOrder} />} />
-        {/* Adicione esta linha para a rota de Pedidos */}
+        {}
         <Route path="/pedidos" element={<HistoricoPedidos />} />
       </Routes>
     </div>
